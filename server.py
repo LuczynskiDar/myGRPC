@@ -50,7 +50,6 @@ class Testcases(itnv_pb2_grpc.TestcasesServicer):
             testcases_container[idx] = element
             id = request.id
         else:
-            print('Get id')
             id = _get_id(request.id)
             testcases_container.append(TestElement(id, request.requirement, request.testcase))
         print(f"Add element with Id: {request}")
