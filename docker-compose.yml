@@ -3,11 +3,10 @@ version: "3.9"
 services:
 
   server:
-    container_name: grpc_server
-    image: wordpress:php7.4
+    container_name: grpc-server
+    image: rayzki/mygrpc-server:1.0
     # build:
-    #   context: "../apps/dwg-web"
-    # # image: wordpress:php8.1
+    #   context: "."
     restart: always
     ports:
       - 30353:50053
