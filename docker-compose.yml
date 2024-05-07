@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+
+  server:
+    container_name: grpc_server
+    image: wordpress:php7.4
+    # build:
+    #   context: "../apps/dwg-web"
+    # # image: wordpress:php8.1
+    restart: always
+    ports:
+      - 30353:50053
+    environment:
+      TARGET_HOST_SERVER: "[::]:50053"
