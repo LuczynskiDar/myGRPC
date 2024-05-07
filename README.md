@@ -8,7 +8,7 @@ myGRPC, my google Remote Procedure Call is a tryout projec to work out how the R
 pip install grpcio grpcio-tools
 ```
 
-### Generating pgRPC Files
+### Generating gRPC Files
 
 ```bash
 python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. itnv.proto
