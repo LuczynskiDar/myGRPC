@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package itnv;
+
+service Testcases {
+  rpc AddElement(AddRequest) returns (AddResponse);
+  rpc GetElement(GetRequest) returns (GetResponse);
+  rpc GetElements(GetRequest) returns (GetResponses);
+  rpc GetStreamedElements(GetRequest) returns (stream GetResponse);
+}
+
+
+message AddRequest {
+  optional int32 id = 1;
+  string requirement = 2;
+  string testcase = 3;
+}
+
+message AddResponse {
+  int32 id = 1;
+}
+
+message GetRequest {
+  string requirement = 1;
+}
+
+message GetResponse {
+  int32 id = 1;
+  string requirement = 2;
+  string testcase = 3;
+}
+
+message GetResponses {
+  repeated GetResponse items = 1;
+}
