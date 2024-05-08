@@ -1,8 +1,10 @@
-import json
 import os
 import grpc
 import argparse
+import json
+
 from dotenv import load_dotenv
+from google.protobuf.json_format import MessageToJson, MessageToDict
 
 import itnv_pb2
 import itnv_pb2_grpc
@@ -31,13 +33,16 @@ def run(**kwargs):
             params = {'requirement': kwargs['requirement']}
             responses = stub.GetStreamedElements(itnv_pb2.GetRequest(**params))
             
+            streamed_responses = []
             for resp in responses:
-                print(json.dumps(resp, indent=4))
-                return json.dumps(resp, indent=4)
+                print(MessageToJson(resp, indent=4))
+                streamed_responses.append(MessageToDict(resp))
+
+            return json.dumps(streamed_responses, indent=4)
         
         if response:
-            print(json.dumps(response, indent=4))
-            return json.dumps(response, indent=4)
+            print(MessageToJson(response, indent=4))
+            return MessageToJson(response, indent=4)
             
 
 

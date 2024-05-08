@@ -10,7 +10,16 @@ import itnv_pb2
 import itnv_pb2_grpc
 
 TestElement = namedtuple("TestElement", "id, requirement, testcase")
-testcases_container: list[TestElement] = []
+testcases_container: list[TestElement] = [
+    TestElement(1, "Security", "TC_SEC_1"),
+    TestElement(2, "Security", "TC_SEC_2"),
+    TestElement(3, "Security", "TC_SEC_3"),
+    TestElement(4, "Security", "TC_SEC_4"),
+    TestElement(5, "Security", "TC_SEC_5"),
+    TestElement(6, "Security", "TC_SEC_6"),
+    TestElement(7, "Communication", "TC_COM_1"),
+    TestElement(8, "Smoke Tests", "TC_SMOKE_1"),
+]
 load_dotenv()
 TARGET_HOST = os.getenv('TARGET_HOST_SERVER')
 
@@ -44,15 +53,13 @@ class Testcases(itnv_pb2_grpc.TestcasesServicer):
     def AddElement(self, request, context):
         idx = _get_idx(request.id)
         if idx:
-            element = testcases_container[idx]
-            element.requirement = request.requirement
-            element.testcase = request.testcase
+            element = TestElement(request.id, request.requirement, request.testcase)
             testcases_container[idx] = element
             id = request.id
         else:
             id = _get_id(request.id)
             testcases_container.append(TestElement(id, request.requirement, request.testcase))
-        print(f"Add element with Id: {request}")
+        print(f"Add element with Id\n: {request}")
         return itnv_pb2.AddResponse(id=id)
 
     def GetElement(self, request, context):
